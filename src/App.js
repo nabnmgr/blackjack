@@ -1,11 +1,12 @@
 import React from 'react';
-import { ChakraProvider, Box, Button } from '@chakra-ui/react';
+import { ChakraProvider, Box } from '@chakra-ui/react';
+import Blackjack from './components/Blackjack';
 
 function App() {
   return (
     <ChakraProvider>
-      <Box textAlign="center" fontSize="xl" p={4}>
-        <Button colorScheme="teal">Test</Button>
+      <Box textAlign="center" p={4}>
+        <Blackjack />
       </Box>
     </ChakraProvider>
   );
