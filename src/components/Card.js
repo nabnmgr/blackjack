@@ -19,8 +19,9 @@ const Card = ({ data, index }) => {
     gsap.set(cardEl.current, {
       visibility: 'hidden',
       x: 500,
-      y: -200,
+      y: -500,
       rotate: Math.sin(index + 5) * 5,
+      scale: 1.5,
     });
 
     gsap.to(cardEl.current, {
@@ -28,7 +29,8 @@ const Card = ({ data, index }) => {
       x: 1 * index * 60,
       y: 0,
       ease: 'power4.out',
-      duration: 0.6,
+      duration: 0.4,
+      scale: 1,
     });
   }, []);
 

@@ -4,12 +4,14 @@ import gsap from 'gsap';
 import _ from 'lodash';
 import Deck from './Deck';
 import Card from './Card';
+import ScoreHistory from './ScoreHistory';
 
 const Blackjack = () => {
   const [cards, setCards] = useState([]);
   const [playerHand, setPlayerHand] = useState([]);
   const [currentTotal, setCurrentTotal] = useState(0);
   const [outcome, setOutcome] = useState(null);
+  const [scoreHistory, setScoreHistory] = useState([]);
 
   useEffect(() => {
     const newDeck = new Deck();
@@ -63,6 +65,8 @@ const Blackjack = () => {
     const cardsToGoBack = _.shuffle(playerHand);
     setCards([...cards, ...cardsToGoBack]);
     setPlayerHand([]);
+
+    setScoreHistory([...scoreHistory, currentTotal]);
     setCurrentTotal(0);
   };
 
@@ -105,7 +109,7 @@ const Blackjack = () => {
             fontWeight="extrabold"
             position="absolute"
             color={outcome === 'Busted' ? 'red.500' : 'black'}
-            top="-200px"
+            top="-190px"
           >
             {outcome}
           </Text>
@@ -116,7 +120,7 @@ const Blackjack = () => {
           fontSize="4em"
           fontWeight="extrabold"
           position="absolute"
-          top="-100px"
+          top="-270px"
           color={outcome === 'Blackjack' ? 'green.600' : 'black'}
           textDecoration={outcome === 'Busted' ? 'line-through' : 'none'}
         >
@@ -148,6 +152,8 @@ const Blackjack = () => {
           Stick
         </Button>
       </Stack>
+
+      {scoreHistory.length > 0 && <ScoreHistory scores={scoreHistory} />}
     </Box>
   );
 };
