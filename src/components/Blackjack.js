@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Stack, Button, Text } from '@chakra-ui/react';
-import Deck from './Deck';
+import gsap from 'gsap';
 import _ from 'lodash';
+import Deck from './Deck';
 import Card from './Card';
 
 const Blackjack = () => {
@@ -23,6 +24,8 @@ const Blackjack = () => {
     if (cards.length === 52 && currentTotal === 0) {
       setOutcome(null);
       hitCard();
+    } else if (cards.length === 51) {
+      gsap.delayedCall(0.3, hitCard);
     }
   }, [cards]);
 
@@ -33,6 +36,7 @@ const Blackjack = () => {
   const hitCard = () => {
     const cardsCopy = [...cards];
     const newCard = cardsCopy.splice(0, 1)[0];
+
     setPlayerHand([...playerHand, newCard]);
     setCards(cardsCopy);
 
@@ -48,10 +52,8 @@ const Blackjack = () => {
   // check score
   useEffect(() => {
     if (currentTotal === 21) {
-      console.log('score updated --- BLACKJACK');
       setOutcome('Blackjack');
     } else if (currentTotal > 21) {
-      console.log('score updated --- BUSTED');
       setOutcome('Busted');
     }
   }, [currentTotal]);
@@ -102,7 +104,7 @@ const Blackjack = () => {
             fontSize="4em"
             fontWeight="extrabold"
             position="absolute"
-            color={outcome === 'Busted' ? 'red.500' : 'green.500'}
+            color={outcome === 'Busted' ? 'red.500' : 'black'}
             top="-200px"
           >
             {outcome}
@@ -133,7 +135,7 @@ const Blackjack = () => {
         <Button
           colorScheme="purple"
           onClick={() => handleHit()}
-          disabled={outcome}
+          disabled={outcome || playerHand.length < 2}
         >
           Hit
         </Button>

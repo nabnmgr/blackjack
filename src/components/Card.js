@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { Box, Icon, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { GiClubs, GiDiamonds, GiHearts, GiSpades } from 'react-icons/gi';
 
 const suitIcons = {
