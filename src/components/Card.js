@@ -12,8 +12,8 @@ const suitIcons = {
 
 const Card = ({ data, index }) => {
   const cardEl = useRef(null);
-
-  console.log('card', index);
+  const color =
+    data.suit === 'diamonds' || data.suit === 'hearts' ? 'red' : 'black';
 
   useEffect(() => {
     gsap.set(cardEl.current, {
@@ -48,7 +48,12 @@ const Card = ({ data, index }) => {
         className="corner-label top"
         style={{ position: 'absolute', top: '5px', left: '10px' }}
       >
-        <Text className="label" fontSize="24px" fontWeight="extrabold">
+        <Text
+          className="label"
+          fontSize="24px"
+          fontWeight="extrabold"
+          color={color}
+        >
           {data.rank}
         </Text>
         <div className="suit">{suitIcons[data.suit]}</div>
@@ -62,7 +67,12 @@ const Card = ({ data, index }) => {
           transform: 'rotate(180deg)',
         }}
       >
-        <Text className="label" fontSize="24px" fontWeight="extrabold">
+        <Text
+          className="label"
+          fontSize="24px"
+          fontWeight="extrabold"
+          color={color}
+        >
           {data.rank}
         </Text>
         <div className="suit">{suitIcons[data.suit]}</div>

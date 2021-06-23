@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Stack, Button } from '@chakra-ui/react';
+import { Box, Stack, Button, Text } from '@chakra-ui/react';
 import Deck from './Deck';
 import _ from 'lodash';
 import Card from './Card';
@@ -77,7 +77,7 @@ const Blackjack = () => {
         left="-100px"
         d="flex"
         justifyContent="center"
-        m={6}
+        m={10}
       >
         {playerHand.map(card => {
           return (
@@ -90,7 +90,37 @@ const Blackjack = () => {
         })}
       </Box>
 
-      <div className="total-value">{currentTotal}</div>
+      <Box
+        className="score-wrapper"
+        position="relative"
+        width="500px"
+        margin="auto"
+      >
+        {outcome && (
+          <Text
+            className="outcome-label"
+            fontSize="4em"
+            fontWeight="extrabold"
+            position="absolute"
+            color={outcome === 'Busted' ? 'red.500' : 'green.500'}
+            top="-200px"
+          >
+            {outcome}
+          </Text>
+        )}
+
+        <Text
+          className="total-value"
+          fontSize="4em"
+          fontWeight="extrabold"
+          position="absolute"
+          top="-100px"
+          color={outcome === 'Blackjack' ? 'green.600' : 'black'}
+          textDecoration={outcome === 'Busted' ? 'line-through' : 'none'}
+        >
+          {currentTotal}
+        </Text>
+      </Box>
 
       <Stack spacing={4} direction="row" justify="center">
         <Button
