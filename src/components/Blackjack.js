@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Stack, Button } from '@chakra-ui/react';
+import { Box, Stack, Button } from '@chakra-ui/react';
 import Deck from './Deck';
 import _ from 'lodash';
+import Card from './Card';
 
 const Blackjack = () => {
   const [cards, setCards] = useState([]);
@@ -68,16 +69,26 @@ const Blackjack = () => {
   };
 
   return (
-    <div>
-      <div className="player-hand">
+    <Box>
+      <Box
+        className="player-hand"
+        minH="300px"
+        position="relative"
+        left="-100px"
+        d="flex"
+        justifyContent="center"
+        m={6}
+      >
         {playerHand.map(card => {
           return (
-            <div key={`${card.suit}-${card.rank}`} className="player-card">
-              {card.suit}-{card.rank}
-            </div>
+            <Card
+              key={`${card.suit}-${card.rank}`}
+              data={card}
+              index={playerHand.length}
+            />
           );
         })}
-      </div>
+      </Box>
 
       <div className="total-value">{currentTotal}</div>
 
@@ -105,7 +116,7 @@ const Blackjack = () => {
           Stick
         </Button>
       </Stack>
-    </div>
+    </Box>
   );
 };
 

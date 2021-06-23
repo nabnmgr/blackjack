@@ -5,7 +5,7 @@ import Blackjack from './components/Blackjack';
 function App() {
   return (
     <ChakraProvider>
-      <Box textAlign="center" p={4}>
+      <Box textAlign="center" p={4} minH="100vh" bg="beige">
         <Blackjack />
       </Box>
     </ChakraProvider>
