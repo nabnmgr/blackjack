@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Stack, Button, Text } from '@chakra-ui/react';
 import gsap from 'gsap';
 import _ from 'lodash';
+import config from '../gameConfig';
 import Deck from './Deck';
 import Card from './Card';
 import ScoreHistory from './ScoreHistory';
@@ -13,16 +14,15 @@ const Blackjack = () => {
   const [outcome, setOutcome] = useState(null);
   const [scoreHistory, setScoreHistory] = useState([]);
 
+  // On load, generate a new set of cards
   useEffect(() => {
     const newDeck = new Deck();
     newDeck.createDeck();
     setCards(newDeck.cards);
-
-    console.log('newdeck', newDeck);
   }, []);
 
+  // new cards on start/restart
   useEffect(() => {
-    // starts new cards
     if (cards.length === 52 && currentTotal === 0) {
       setOutcome(null);
       hitCard();
@@ -44,8 +44,8 @@ const Blackjack = () => {
 
     let { rank, value } = newCard;
     // Ace to represent 11 if the sum exceeds 21
-    if (rank === 'A' && currentTotal <= 10) {
-      value = 11;
+    if (rank === 'A' && currentTotal < config.ace_alt_value) {
+      value = config.ace_alt_value;
     }
 
     setCurrentTotal(currentTotal + value);
@@ -53,9 +53,9 @@ const Blackjack = () => {
 
   // check score
   useEffect(() => {
-    if (currentTotal === 21) {
+    if (currentTotal === config.blackjack_value) {
       setOutcome('Blackjack');
-    } else if (currentTotal > 21) {
+    } else if (currentTotal > config.blackjack_value) {
       setOutcome('Busted');
     }
   }, [currentTotal]);
@@ -66,6 +66,7 @@ const Blackjack = () => {
     setCards([...cards, ...cardsToGoBack]);
     setPlayerHand([]);
 
+    // add current score in the history then clear the score
     setScoreHistory([...scoreHistory, currentTotal]);
     setCurrentTotal(0);
   };

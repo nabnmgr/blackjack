@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Stack, Text } from '@chakra-ui/react';
+import config from '../gameConfig';
 
 const ScoreHistory = ({ scores }) => {
   return (
@@ -12,7 +13,7 @@ const ScoreHistory = ({ scores }) => {
       >
         <Text>History:</Text>
         {scores.map((score, index) => {
-          if (score === 21) {
+          if (score === config.blackjack_value) {
             return (
               <Text key={index} color="green.600">
                 {score}
@@ -20,7 +21,10 @@ const ScoreHistory = ({ scores }) => {
             );
           } else {
             return (
-              <Text key={index} color={score > 21 ? 'red.500' : 'black'}>
+              <Text
+                key={index}
+                color={score > config.blackjack_value ? 'red.500' : 'black'}
+              >
                 {score}
               </Text>
             );
